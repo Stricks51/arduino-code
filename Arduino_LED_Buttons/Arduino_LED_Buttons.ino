@@ -26,6 +26,8 @@ void setup() {
   pinMode(LED_PIN_1, OUTPUT); // sets the mode for pins: output to show they will provide an output (e.g. light up led)
   pinMode(BUTTON_PIN_2, INPUT_PULLUP); // sets the mode for pins: input_pullup to show it as an input pin with pull up resistors
   pinMode(LED_PIN_2, OUTPUT); // sets the mode for pins: output to show they will provide an output (e.g. light up led)
+
+  Keyboard.begin(); // initiating the keyboard library
 }
 
 // the function continuously runs after setup
@@ -45,6 +47,8 @@ void loop() {
     wasButton1Pressed = true; // if all conditions are true, turn the wasButton1pressed to true, and begin executing code inside "if (wasButton1Pressed){}"
     button1TimeNow = millis(); //records current time of the button for the delay
     led1DelayCompleted = false; // false indicates that delay period is now running for LED 1
+
+    Keyboard.press('w'); //send w press (for testing)
   }
 
 // main code for button press to turn on and off the LED
@@ -55,6 +59,8 @@ void loop() {
       digitalWrite(LED_PIN_1, LOW); //if false (delay period is finished) have the LED off
       wasButton1Pressed = false; // reset the button press value to false meaning it is no longer being pressed
       led1DelayCompleted = true; // mark the period delay completed, meaning LED is off
+
+      Keyboard.release('w'); //release w press (for testing)
     }
   }
 
@@ -63,6 +69,7 @@ void loop() {
     wasButton2Pressed = true;
     button2TimeNow = millis();
     led2DelayCompleted = false; 
+    Keyboard.press('s'); 
   }
 
   if (wasButton2Pressed) {
@@ -72,6 +79,7 @@ void loop() {
       digitalWrite(LED_PIN_2, LOW);
       wasButton2Pressed = false;
       led2DelayCompleted = true; 
+      Keyboard.release('s'); 
     }
   }
 }
