@@ -50,7 +50,7 @@ void loop() {
     button1TimeNow = millis(); //records current time of the button for the delay
     led1DelayCompleted = false; // false indicates that delay period is now running for LED 1
 
-    Keyboard.write('w'); //send w press (for testing)
+    Keyboard.write(' '); //send w press (for testing)
   }
 
 // main code for button press to turn on and off the LED
@@ -69,7 +69,7 @@ void loop() {
     wasButton2Pressed = true;
     button2TimeNow = millis();
     led2DelayCompleted = false; 
-    Keyboard.write('s'); 
+    Keyboard.write(' '); 
   }
 
   if (wasButton2Pressed) {
