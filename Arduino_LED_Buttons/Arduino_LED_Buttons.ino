@@ -1,3 +1,5 @@
+#include <Keyboard.h> //include the keyboard library
+
 // define is like creating const in JS as we give it a variable that cannot be reassigned
 #define PERIOD_DELAY 1000 // the delay time of of registering a keypress
 
@@ -48,7 +50,7 @@ void loop() {
     button1TimeNow = millis(); //records current time of the button for the delay
     led1DelayCompleted = false; // false indicates that delay period is now running for LED 1
 
-    Keyboard.press('w'); //send w press (for testing)
+    Keyboard.write('w'); //send w press (for testing)
   }
 
 // main code for button press to turn on and off the LED
@@ -59,8 +61,6 @@ void loop() {
       digitalWrite(LED_PIN_1, LOW); //if false (delay period is finished) have the LED off
       wasButton1Pressed = false; // reset the button press value to false meaning it is no longer being pressed
       led1DelayCompleted = true; // mark the period delay completed, meaning LED is off
-
-      Keyboard.release('w'); //release w press (for testing)
     }
   }
 
@@ -69,7 +69,7 @@ void loop() {
     wasButton2Pressed = true;
     button2TimeNow = millis();
     led2DelayCompleted = false; 
-    Keyboard.press('s'); 
+    Keyboard.write('s'); 
   }
 
   if (wasButton2Pressed) {
@@ -79,7 +79,6 @@ void loop() {
       digitalWrite(LED_PIN_2, LOW);
       wasButton2Pressed = false;
       led2DelayCompleted = true; 
-      Keyboard.release('s'); 
     }
   }
 }
