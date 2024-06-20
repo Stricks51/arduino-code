@@ -1,7 +1,7 @@
-#include <Keyboard.h> //include the keyboard library
+#include <Keyboard.h> //include the keyboard usb library
 
 // define is like creating const in JS as we give it a variable that cannot be reassigned
-#define PERIOD_DELAY 1000 // the delay time of of registering a keypress
+#define PERIOD_DELAY 2000 // the delay time of of registering a keypress
 
 #define LED_PIN_1 9 // LED connected to button 1
 #define BUTTON_PIN_1 8 //button 1
@@ -30,6 +30,7 @@ void setup() {
   pinMode(LED_PIN_2, OUTPUT); // sets the mode for pins: output to show they will provide an output (e.g. light up led)
 
   Keyboard.begin(); // initiating the keyboard library
+  randomSeed(analogRead(A0)); //allowing the random() to reset on an available pin
 }
 
 // the function continuously runs after setup
@@ -38,7 +39,7 @@ void loop() {
   bool currentButton1State = digitalRead(BUTTON_PIN_1);
   bool currentButton2State = digitalRead(BUTTON_PIN_2);
 
-  // handling the button 1 & led 1
+    // handling the button 1 & led 1
 
   //setup to prevent overlapping presses with the delay, setting it up to ensure wasButton1Pressed is only true once per loop
   if (currentButton1State == LOW && !wasButton1Pressed && led2DelayCompleted) { 
@@ -50,7 +51,9 @@ void loop() {
     button1TimeNow = millis(); //records current time of the button for the delay
     led1DelayCompleted = false; // false indicates that delay period is now running for LED 1
 
-    Keyboard.write(' '); //send w press (for testing)
+    Keyboard.press(random(KEY_KP_1, KEY_KP_3)); // first press is a random number between 1-2 which displays positive colours
+    Keyboard.press(' '); // second press is a keyboard which initiates fluid design based on the previous number (positve colours in this case)
+    Keyboard.releaseAll(); // stops all the presses instantly after 1 press
   }
 
 // main code for button press to turn on and off the LED
@@ -69,7 +72,9 @@ void loop() {
     wasButton2Pressed = true;
     button2TimeNow = millis();
     led2DelayCompleted = false; 
-    Keyboard.write(' '); 
+    Keyboard.press(random(KEY_KP_3, KEY_KP_5));
+    Keyboard.press(' ');
+    Keyboard.releaseAll();
   }
 
   if (wasButton2Pressed) {
